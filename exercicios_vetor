@@ -1,0 +1,181 @@
+# Faça um programa em Python que leia um conjunto de 100 elementos numéricos e os
+# armazene em um vetor (lista). Em seguida, o programa deverá procurar se existem no vetor
+# elementos iguais a um dado valor também informado pelo usuário e imprimir o índice das
+# posições em que estes são encontrados
+
+import random
+numeros = [] # cria lista
+for num in range(100):
+ numeros.append (random.randint(0, 100))
+
+meuNum = int(input('Digite o inteiro a ser buscado na lista:'))
+meuNum_IDs = [] # lista de ocorrencias (ids)
+for i in range(len(numeros)):
+    if numeros[i] == meuNum:
+        meuNum_IDs.append(i) # add indice na lista
+
+print_str = 'O número ' + str(meuNum) + ' ocorre nas posições: '
+print(print_str, meuNum_IDs)
+
+# Uma locadora de vídeo-game tem guardada, em um vetor (lista) de 500 posições, a
+# quantidade de jogos retirados por seus clientes durante o ano passado (i.e. Clientes[i] = X -> o
+# cliente “i” retirou X jogos no ano passado). Agora esta locadora está fazendo uma promoção e,
+# para cada 10 jogos retirados no ano passado, o cliente tem direito a uma locação grátis. Faça
+# um programa em Python que crie um outro vetor contendo a quantidade de locações gratuitas
+# a que cada cliente tem direito.
+
+import random
+
+clientes = [] # qtd de jogos retiradas pelos clientes no ano passado
+nClientes = 500
+locacaoGratis = []
+for i in range(nClientes):
+    clientes.append(random.randint(0,100))
+for i in range(nClientes):
+    locacaoGratis.append(clientes[i]/10)
+print("Locações no ano passado: \n", clientes)
+print("Número de locações grátis: \n", locacaoGratis)
+
+# Faça um programa em Python que receba um vetor (lista) A de dimensão N e:
+# (a) Inverta os valores de A, troque o primeiro pelo ultimo, o segundo pelo penúltimo e assim por diante.
+# (b) Após este procedimento, criar um vetor B de dimensão N com o fatorial de cada
+# valor de A, respeitando as posições, caso o valor for positivo ou nulo. Deixe os valores negativos intactos.
+# (c) Imprima o vetor B.
+
+import random
+N = int(input('Entre o número N: '))
+A = []
+
+for i in range (N):
+    A.append(random.randint(-10,10))
+
+print('Vetor A:',A)
+
+for i in range (int (N/2)): # realiza trocas. Se N for impar, o elemento do meio ja esta correto
+    aux = A[i]
+    A[i] = A[N - 1 - i]
+    A[N - 1 - i] = aux
+
+B = []
+
+for i in range (N):
+    if A[i] > 0: #fatorial de A[i]
+        val = 1
+        factor = A[i]
+        while factor > 1:
+            val = val * factor
+            factor = factor - 1
+        B.append(val) #adiciona o valor
+    else:
+        B.append(A[i])
+print("vetor A após as trocas: ",A)
+print("vetor B: ",B)
+
+# Faça um programa recebe um vetor (lista) número de tamanho 100. O programa deve
+# percorrer este vetor e imprimir na tela o valor mais próximo da média dos valores deste vetor.
+
+import random
+lista = []
+N = 100
+
+for i in range(N):
+    lista.append(random.randint(0,100)) #gera lista aleatoria
+soma = 0
+
+for i in range(N):
+    soma = soma + lista[i]
+
+media = soma/N # media
+minDist = -1 #menor distancia para a media
+minDist_ID = -1 #id do elemento com menor distancia
+
+for i in range(0,N):
+    dif = 0
+    if lista[i] >= media:
+        dif = lista[i] - media
+    else:
+        dif = media - lista[i]
+    if minDist == -1 or dif < minDist:
+       minDist = dif
+       minDist_ID = i
+
+print("Vetor: ", lista)
+print("média: ", media)
+print("Valor mais próximo da média: ", lista[minDist_ID])
+
+# Faça um programa que receba dois vetores (listas), um de tamanho N e outro de tamanho
+# M. O programa deve percorrer os dois vetores e intercalar os elementos de ambos, formando
+# um terceiro vetor. O terceiro vetor deve começar pelo primeiro elemento do vetor menor.
+
+import random
+vetor1 = []
+vetor2 = []
+N = random.randint(0,10)
+M = random.randint(0,10)
+for i in range(N):
+    vetor1.append(random.randint(0,100))
+for i in range(M):
+    vetor2.append(random.randint(0,100))
+vetor3 = []
+for i in range(max(N,M)):
+    if i < N:
+        vetor3.append(vetor1[i])
+    if i < M:
+        vetor3.append(vetor2[i])
+print(vetor1)
+print(vetor2)
+print(vetor3)
+
+#Escreva um programa que:
+#(a) Armazene o nomes dos candidados em um vetor e a média das notas em outro vetor.
+#(b) Apresentar um relatório apresentando o nome dos candidatos em ordem de classificação de acordo com a média obtida
+nomes = []
+medias = []
+n = int(input("Digite o numero de alunos: "))
+for i in range(n):
+    nomes.append(input("Nome: "))
+    medias.append(float(input("Média: ")))
+    # posicionar cada elemento i por realizar trocas
+    # com os vizinhos (i < 0) já posicionados
+for i in range(len(nomes)):
+    j = i
+    # enquanto i tiver média inferior ao elemento anterior
+    # realiza a troca de posições
+    while medias[j] < medias[j-1] and j>0: # troca
+        aux = medias[j]
+        medias[j] = medias[j-1] # troca de medias
+        medias[j] = aux
+        aux = nomes[j]
+        nomes[j] = nomes[j-1] #troca de nomes
+        nomes[j-1] = aux
+        j = j-1
+for i in range(len(nomes)):
+    print(nomes[i],medias[i])
+
+# Faça um programa em Python que simule uma agenda telefônica onde o usuário informe os
+# telefones (inteiros) e você deverá inserir estes valores de forma ordenada num vetor (lista). O
+# usuário deve ser capaz de inserir até 100 telefones. Após acabar a inserção, apresente os
+# valores inseridos que estão ordenados.
+
+print("\t==== Agenda telefônica ====")
+agenda = []
+
+for i in range(100):
+    entrada = input("Insira um novo número ou sair para encerrar: ")
+    if entrada == "sair":
+        break
+    else:
+        agenda.append(int(entrada)) #adiciona um novo número na agenda
+        j = len(agenda)-1 #posiciona numero para manter ordem correta
+        while agenda[j] < agenda[j-1] and j > 0:
+            aux = agenda [j]
+            agenda[j] = agenda[j-1]
+            agenda[j-1] = aux #troca de medias
+            j = j-1
+    if len(agenda) > 0:
+        print("Agenda ordenada: \n")
+        for i in range(len(agenda)):
+            print(agenda[i])
+
+
+
