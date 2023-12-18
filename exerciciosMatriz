@@ -1,0 +1,39 @@
+#1) Faça um programa que recebe como parâmetro uma matriz A (nxn) de números reais. Essa função deve informar
+#(a) a soma dos elementos da coluna “n”
+#(b) a soma dos elementos da diagonal principal da matriz e
+#(c) a soma dos elementos acima da diagonal principal
+#(d) o número de células da matriz que têm valor menor que a média dos valores das células da matriz,
+
+import random
+A = []
+n = random.randint(1,10) #nº de linhas e colunas da matriz A
+for i in range (n): #cria matriz aleatória
+    l = []
+    for j in range(n): #cria linha aleatoria
+        l.append(random.randint(1,10))
+    A.append(l) #adiciona linha a matriz 
+soma_col_n = 0
+soma_diag = 0
+for i in range(n): #calcula soma da n­ésima coluna
+    soma_col_n += A[n-1][i]
+    soma_diag += A[i][i]
+soma_acima_diag = 0
+soma_mat = 0
+for i in range(n):
+    for j in range(n):
+        if (j > i):
+            soma_acima_diag += A[i][j]
+        soma_mat += A[i][j]
+media = soma_mat / (n*n) #calcula media
+n_abaixo_media = 0
+for i in range(n):
+    for j in range(n):
+        if A[i][j] < media:
+            n_abaixo_media += 1
+for i in range(n):
+    print(A[i])
+print(soma_col_n)
+print(soma_diag)
+print(soma_acima_diag)
+print(media,n_abaixo_media)
+
